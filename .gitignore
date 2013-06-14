@@ -1,0 +1,26 @@
+# Maven
+target/
+*.ser
+*.ec
+
+# IntelliJ Idea
+.idea/
+out/
+*.ipr
+*.iws
+*.iml
+
+# Eclipse
+.classpath
+.project
+.settings/
+
+# Python
+.pydevproject
+
+# Svn
+.svn/
+
+# Other
+bin/
+logs/
