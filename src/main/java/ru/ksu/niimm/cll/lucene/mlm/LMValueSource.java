@@ -132,8 +132,8 @@ public class LMValueSource extends TermFreqValueSource {
             }
 
             private float computeScore(int freq, int docId) throws IOException {
-                Long norm = new Long(norms.get(docId));
-                return dirichletSimilarity.score(basicStats, freq, dirichletSimilarity.decodeNormValue(norm.byteValue()));
+                return dirichletSimilarity.score(basicStats, freq,
+                        dirichletSimilarity.decodeNormValue((byte) norms.get(docId)));
             }
         };
     }
