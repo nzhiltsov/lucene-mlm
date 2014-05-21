@@ -13,19 +13,18 @@ import org.slf4j.LoggerFactory
 class TestingSEMIndexer {
   private val logger = LoggerFactory.getLogger("lucene-mlm.TestingSEMIndexer")
 
-  private val analyzer = new StandardAnalyzer(Version.LUCENE_40)
+  private val analyzer = new StandardAnalyzer(Version.LUCENE_48)
 
   val directory = new RAMDirectory
 
   private val indexWriterConfig = {
-    val config: IndexWriterConfig = new IndexWriterConfig(Version.LUCENE_40, analyzer)
+    val config: IndexWriterConfig = new IndexWriterConfig(Version.LUCENE_48, analyzer)
     config.setSimilarity(new LMPerFieldDirichletSimilarity)
     config.setRAMBufferSizeMB(256)
     config.setMaxBufferedDocs(IndexWriterConfig.DISABLE_AUTO_FLUSH)
     config.setMaxBufferedDeleteTerms(IndexWriterConfig.DISABLE_AUTO_FLUSH)
     val mergeScheduler: ConcurrentMergeScheduler = config.getMergeScheduler.asInstanceOf[ConcurrentMergeScheduler]
-    mergeScheduler.setMaxMergeCount(8)
-    mergeScheduler.setMaxThreadCount(6)
+    mergeScheduler.setMaxMergesAndThreads(8, 6)
     config
   }
 

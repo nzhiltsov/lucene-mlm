@@ -1,7 +1,5 @@
 package ru.ksu.niimm.cll.lucene.mlm;
 
-import org.apache.lucene.index.FieldInvertState;
-import org.apache.lucene.index.Norm;
 import org.apache.lucene.search.CollectionStatistics;
 import org.apache.lucene.search.TermStatistics;
 import org.apache.lucene.search.similarities.BasicStats;
@@ -20,11 +18,6 @@ public class LMPerFieldDirichletSimilarity extends LMDirichletSimilarity {
         float collectionProbability = ((LMStats) stats).getCollectionProbability();
         float score = (freq + mu * collectionProbability) / (docLen + mu);
         return score;
-    }
-
-    @Override
-    public void computeNorm(FieldInvertState state, Norm norm) {
-        super.computeNorm(state, norm);
     }
 
     @Override
