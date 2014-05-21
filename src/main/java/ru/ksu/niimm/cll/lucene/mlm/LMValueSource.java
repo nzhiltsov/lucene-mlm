@@ -39,14 +39,14 @@ public class LMValueSource extends TermFreqValueSource {
         final IndexSearcher searcher = (IndexSearcher) context.get("searcher");
         final IndexReaderContext topContext = searcher.getTopReaderContext();
         final Term term = new Term(indexedField, indexedBytes);
-        final TermContext termContext = TermContext.build(topContext, term, true);
+        final TermContext termContext = TermContext.build(topContext, term);
         final CollectionStatistics collectionStats = searcher.collectionStatistics(indexedField);
         final LMPerFieldDirichletSimilarity dirichletSimilarity = (LMPerFieldDirichletSimilarity) searcher.getSimilarity();
         final BasicStats basicStats = dirichletSimilarity.newStats(indexedField, 1);
         final TermStatistics termStats =
                 new TermStatistics(term.bytes(), termContext.docFreq(), termContext.totalTermFreq());
         dirichletSimilarity.fillBasicStats(basicStats, collectionStats, termStats);
-        final byte[] norms = (byte[]) readerContext.reader().normValues(indexedField).getSource().getArray();
+        final NumericDocValues norms = readerContext.reader().getNormValues(indexedField);
         if (dirichletSimilarity == null) {
             throw new UnsupportedOperationException("requires an LMPerFieldDirichletSimilarity");
         }
@@ -65,7 +65,7 @@ public class LMValueSource extends TermFreqValueSource {
 
                 if (terms != null) {
                     final TermsEnum termsEnum = terms.iterator(null);
-                    if (termsEnum.seekExact(indexedBytes, false)) {
+                    if (termsEnum.seekExact(indexedBytes)) {
                         docs = termsEnum.docs(null, null);
                     } else {
                         docs = null;
@@ -76,6 +76,11 @@ public class LMValueSource extends TermFreqValueSource {
 
                 if (docs == null) {
                     docs = new DocsEnum() {
+                        @Override
+                        public long cost() {
+                            return 0;
+                        }
+
                         @Override
                         public int freq() {
                             return 0;
@@ -127,7 +132,8 @@ public class LMValueSource extends TermFreqValueSource {
             }
 
             private float computeScore(int freq, int docId) throws IOException {
-                return dirichletSimilarity.score(basicStats, freq, dirichletSimilarity.decodeNormValue(norms[docId]));
+                Long norm = new Long(norms.get(docId));
+                return dirichletSimilarity.score(basicStats, freq, dirichletSimilarity.decodeNormValue(norm.byteValue()));
             }
         };
     }

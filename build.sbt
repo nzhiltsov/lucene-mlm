@@ -2,7 +2,7 @@ import AssemblyKeys._
 
 name := "lucene-mlm"
 
-version := "0.1"
+version := "0.2"
 
 organization := "ru.ksu.niimm.cll"
 
@@ -26,11 +26,11 @@ libraryDependencies += "org.scalatest" %% "scalatest" % "1.8" % "test"
 
 libraryDependencies += "junit" % "junit" % "4.8" % "test"
 
-libraryDependencies += "org.apache.lucene" % "lucene-core" % "4.0.0"
+libraryDependencies += "org.apache.lucene" % "lucene-core" % "4.8.1"
 
-libraryDependencies += "org.apache.lucene" % "lucene-analyzers-common" % "4.0.0"
+libraryDependencies += "org.apache.lucene" % "lucene-analyzers-common" % "4.8.1"
 
-libraryDependencies += "org.apache.lucene" % "lucene-queryparser" % "4.0.0"
+libraryDependencies += "org.apache.lucene" % "lucene-queryparser" % "4.8.1"
 
 libraryDependencies += "ch.qos.logback" % "logback-classic" % "1.0.9"
 
