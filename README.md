@@ -9,7 +9,7 @@ Lucene-MLM is a tiny Java library enabling a mixture of language models [1] as a
 
 Current Version
 ------------
-[0.2.1](https://github.com/nzhiltsov/lucene-mlm/archive/0.2.1.zip)
+[0.2.2](https://github.com/nzhiltsov/lucene-mlm/archive/0.2.2.zip)
 
 Features
 ------------
