@@ -32,6 +32,7 @@ public class MLMQueryBuilder {
         int k = 0;
         for (Map.Entry<String, Float> entry : fieldWeightsList) {
             weights[k] = entry.getValue();
+            k++;
         }
         for (String queryTerm : queryTerms) {
             ValueSource[] secondSources = new ValueSource[fieldWeights.size()];
