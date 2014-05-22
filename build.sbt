@@ -2,7 +2,7 @@ import AssemblyKeys._
 
 name := "lucene-mlm"
 
-version := "0.2.1"
+version := "0.2.2"
 
 organization := "ru.ksu.niimm.cll"
 

@@ -28,6 +28,7 @@ public class WeightedSumFloatFunction extends SumFloatFunction {
         int i = 0;
         for (FunctionValues vals : valsArr) {
             val += weights[i] * vals.floatVal(doc);
+            i++;
         }
         return val;
     }
